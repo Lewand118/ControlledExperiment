@@ -1,0 +1,12 @@
+*
+
+!README.md
+!.gitignore
+
+!CodeToReview/
+!CodeToReview/*.py
+
+!ProperCode/
+!ProperCode/*.py
+
+!*.pdf
