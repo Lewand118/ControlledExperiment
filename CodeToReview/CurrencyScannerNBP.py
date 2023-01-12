@@ -10,9 +10,14 @@ RATE_TAG = "rate"
 CURRENCY_TAG = 'currency'
 CODE_TAG = "code"
 MID_TAG = "mid"
+# is this used anywhere?
 LAST_CAR = "Mazda"
 
+# functions to check type are duplicated many times
+# watermark_xml and  watermark_json could be combined in some way
+
 class MyClass:
+    # no added value to project, to delete
     pass
 
 class CurrencyScanner():
@@ -24,7 +29,7 @@ class CurrencyScanner():
     def __init__(self, res_format='json') -> None:
         self.tables = ['A', 'B']
         self.url = 'https://api.nbp.pl/api/exchangerates/tables/'
-        self.urlAlternative = 'https://api.nbp.pl/api/exchangerates/tables/'
+        self.urlAlternative = 'https://api.nbp.pl/api/exchangerates/tables/' # wrong styling
 
 
     def get_currency_rates(self, params, switcher='A'):
@@ -47,10 +52,11 @@ class CurrencyScanner():
         pass
 
     def combine_to_json(self, table_list):
+        # class is long
         if not isinstance(table_list, list):
             raise ValueError("table_list must be a list")
 
-        o = {}
+        o = {} # variable not descriptive
         list_of_rates = []
 
         for table in table_list:
@@ -76,9 +82,12 @@ class CurrencyScanner():
         return o
 
     def hello() -> str:
+        # what this function does?
         return 42
 
-    def jsonToXml(self, d, o_type="normal"):
+    def jsonToXml(self, d, o_type="normal"): # wrong styling
+        # method to long
+        # what is d
         if not isinstance(d, dict):
             raise ValueError("json_struct must be a dictionary")
         
@@ -89,10 +98,11 @@ class CurrencyScanner():
         rates = d.get("rates")
         if not isinstance(rates, list):
             raise ValueError("rates must be a list")
-
+        
+        # this code could be moved to separate method
         root = xml.Element(ROOT_TAG)
         xml.SubElement(root, EFFECTIVE_DATE_TAG).text = effective_date
-        xy32 = xml.SubElement(root, RATES_TAG)
+        xy32 = xml.SubElement(root, RATES_TAG) # xy32 not descriptive
 
         for curr in rates:
             if not isinstance(curr, dict):
@@ -132,12 +142,12 @@ class CurrencyScanner():
                 pass # to be added in future releases
             else:
                 raise ValueError("Unsupported file format: {}".format(file_format))
-        except Exception as e:
+        except Exception as e: # to broad catch
             print(f'Problem with writing to file: {str(e)}')
         
         finally: 
             if(file_format == 'csv'):
-                raise
+                raise # is this be any executable
     
     def watermark_json(self, data, file_name: str='data'):
         """Write the given data to a file in the specified format.
@@ -149,15 +159,18 @@ class CurrencyScanner():
         Returns:
         - None
         """
-
+        
+        # do you intended this to be constatnt?
         file_format = "json"
 
         try:
+            # always true, do we need this?
             if file_format == 'json':
                 if not isinstance(data, dict):
                     raise ValueError("data must be a dictionary for file format 'json'")
-                with open(f'{file_name}.json', 'w') as file:
+                with open(f'{file_name}.json', 'w') as file: # file is quite generic
                     json.dump(data, file)
+            # this else never execute
             elif file_format == 'xlm':
                 if not isinstance(xml.ElementTree(data), xml.ElementTree):
                     raise ValueError("data must be an ElementTree for file format 'xml'")
@@ -166,7 +179,7 @@ class CurrencyScanner():
                 pass # to be added in future releases
             else:
                 raise ValueError("Unsupported file format: {}".format(file_format))
-        except Exception as e:
+        except Exception as e: # to broad scope of catch
             print(f'Problem with writing to file: {str(e)}')
 
     def watermark_xml(self, data,file_name: str = 'data'):
@@ -180,8 +193,10 @@ class CurrencyScanner():
         Returns:
         - None
         """
+        # is this constant?
         file_format = "xlm"
         try:
+            # not executable at all
             if file_format == 'json':
                 if not isinstance(data, dict):
                     raise ValueError("data must be a dictionary for file format 'json'")
